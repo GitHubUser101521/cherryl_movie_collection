@@ -1,74 +1,12 @@
 import { useEffect, useState } from 'react'
 import Swal from 'sweetalert2'
 import axios from 'axios'
-import { MovieType } from '../utils/Type'
 import Header from './Header'
+import { MovieType } from '../../utils/Type'
+import { emptyMovieType } from '../../utils/services'
 
 function Hero() {
-    const [ heroMovie, setHeroMovie ] = useState<MovieType>({
-        short: {
-            url: '',
-            name: '',
-            image: '',
-            review: {
-                author: '',
-                dateCreated: '',
-                name: '',
-                reviewBody: '',
-                reviewRating: {
-                    ratingValue: ''
-                }
-            },
-            trailer: {
-                embedUrl: ''
-            }
-        },
-        top: {
-            categories: [],
-            releaseDate: {
-                day: 0,
-                month: 0,
-                year: 0
-            },
-            runtime: {
-                seconds: 0
-            },
-            ratingsSummary: {
-                aggregateRating: 0,
-                voteCount: 0
-            },
-            isAdult: false,
-            genres: {
-                genres: []
-            },
-            plot: {
-                plotText: {
-                    plainText: ''
-                }
-            }
-        },
-        main: {
-            moreLikeThisTitles: {
-                edges: []
-            },
-            cast: {
-                total: 0,
-                edges: []
-            },
-            directors: [
-                {
-                    totalCredits: 0,
-                    credits: []
-                }
-            ],
-            writers: [
-                {
-                    totalCredits: 0,
-                    credits: []
-                }
-            ] 
-        }
-    })    
+    const [ heroMovie, setHeroMovie ] = useState<MovieType>(emptyMovieType)    
 
     useEffect(() => {
         const fetchHeroMovie = async () => {
@@ -105,7 +43,7 @@ function Hero() {
                     <p className='opacity-70'>{heroMovie.top.plot.plotText.plainText}</p>
 
                     <div className='flex items-center gap-2 justify-end mt-2'>
-                        {heroMovie.short.review.reviewRating.ratingValue}
+                        {heroMovie.top.ratingsSummary.aggregateRating}
                         <img src="/star-icon.png" alt="Stars" className='w-8 aspect-square'/>
                     </div>
 

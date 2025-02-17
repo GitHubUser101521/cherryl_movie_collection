@@ -1,4 +1,5 @@
 export type MovieType = {
+    imdbId: string,
     short: {
         url: string,
         name: string,
@@ -14,7 +15,7 @@ export type MovieType = {
         },
         trailer: {
             embedUrl: string
-        }
+        },
     },
     top: {
         categories: CategoryType[],
@@ -26,7 +27,10 @@ export type MovieType = {
         runtime: {
             seconds: number
         },
-        ratingsSummary: RatingsSummaryType
+        ratingsSummary: {
+            aggregateRating: number,
+            voteCount: number
+        }
         isAdult: boolean,
         genres: {
             genres: GenreType[]
@@ -35,6 +39,9 @@ export type MovieType = {
             plotText: {
                 plainText: string
             }
+        },
+        featuredReviews: {
+            edges: ReviewType[]
         }
     },
     main: {
@@ -45,12 +52,7 @@ export type MovieType = {
             total: number,
             edges: CastEdge[]
         },
-        directors: [
-            {
-                totalCredits: number,
-                credits: CrewType[]
-            }
-        ],
+        directors: DirectorsType,
         writers: [
             {
                 totalCredits: number,
@@ -68,7 +70,25 @@ export type SimpleMovieType = {
     IMG_POSTER: string
 }
 
-type CastEdge = {
+type ReviewType = {
+    node: {
+        author: {
+            nickName: string
+        },
+        summary: {
+            originalText: string
+        },
+        text: {
+            originalText: {
+                plainText: string
+            }
+        },
+        authorRating: number,
+        submissionDate: string
+    }
+}
+
+export type CastEdge = {
     node: {
         name: {
             id: string,
@@ -98,6 +118,13 @@ type CrewType = {
     }
 }
 
+type DirectorsType = [
+    {
+        totalCredits: number,
+        credits: CrewType[]
+    }
+]
+
 type CategoryType = {
     value: string
 }
@@ -115,12 +142,7 @@ type Character = {
     name: string
 }
 
-type RatingsSummaryType = {
-    aggregateRating: number,
-    voteCount: number
-}
-
-type MoreLikeThisTitleType = {
+export type MoreLikeThisTitleType = {
     node: {
         id: string,
         titleText: {
@@ -138,7 +160,10 @@ type MoreLikeThisTitleType = {
             year: number,
             endYear: number
         },
-        ratingsSummary: RatingsSummaryType,
+        ratingsSummary: {
+            aggregateRating: number,
+            voteCount: number
+        },
         titleGenres: {
             genres: {
                 text: string

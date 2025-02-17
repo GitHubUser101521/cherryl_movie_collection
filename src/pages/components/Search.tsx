@@ -1,9 +1,8 @@
 import { useEffect, useState } from 'react'
 import { useParams } from 'react-router-dom'
-import { fetchMovies } from '../utils/services'
-import { SimpleMovieType } from '../utils/Type'
-import MovieImage from './MovieImage'
-import Header from './Header'
+import { Header, MovieImage } from './Components'
+import { fetchMovies } from '../../utils/services'
+import { SimpleMovieType } from '../../utils/Type'
 
 function Search() {
     const { query } = useParams()
@@ -14,7 +13,7 @@ function Search() {
 
         fetchMovies(query)
             .then(res => setMovies(res))
-    }, [])
+    }, [query])
 
     return (
         <>
@@ -25,7 +24,7 @@ function Search() {
                 
                 <div className='flex justify-between gap-4 mt-6'>
                 {
-                    movies ?
+                    movies?.length ?
                     movies.map(movie => (
                         <MovieImage {...movie} key={movie.IMDB_ID} />
                     ))

@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react'
-import { fetchMovies } from '../utils/services'
-import { SimpleMovieType } from '../utils/Type'
-import MovieImage from './MovieImage'
+import { MovieImage } from './Components'
+import { fetchMovies } from '../../utils/services'
+import { SimpleMovieType } from '../../utils/Type'
 
 type prop = {
     header: string,
@@ -9,7 +9,7 @@ type prop = {
 }
 
 function MoviesBelt({ header, caption }: prop) {
-    const [ movies, setMovies ] = useState<SimpleMovieType[]>([])
+    const [ movies, setMovies ] = useState<SimpleMovieType[]>()
 
     useEffect(() => {
         if (!header) return
@@ -17,7 +17,7 @@ function MoviesBelt({ header, caption }: prop) {
         fetchMovies(header)
             .then(res => setMovies(res))
     }, [])
-
+    
     return (
         <div className='my-8'>
             <h1 className='text-3xl  font-bold'>{ header }</h1>
@@ -27,14 +27,7 @@ function MoviesBelt({ header, caption }: prop) {
                 {
                     movies && 
                     movies.map(movie => (
-                        <>
-                            {
-                                movie ? 
-                                <MovieImage {...movie} key={movie.IMDB_ID}/>
-                                :
-                                <></>
-                            }
-                        </>
+                        <MovieImage {...movie} key={movie.IMDB_ID}/>
                     ))
                 }
             </div>

@@ -1,13 +1,10 @@
-import {} from 'react'
-import Hero from './Hero'
-import MoviesBelt from './MoviesBelt'
-import Footer from './Footer'
+import { Hero, MoviesBelt, Footer } from './components/Components'
 
 function App() {
     const headers = [
         {
-            header: 'Anime',
-            caption: 'Newest Release'
+            header: 'Animation',
+            caption: 'Quite Popular'
         },
         {
             header: 'Disney',

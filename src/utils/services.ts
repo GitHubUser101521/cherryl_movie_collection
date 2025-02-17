@@ -1,6 +1,75 @@
 import Swal from "sweetalert2"
 import axios from 'axios'
-import { SimpleMovieType } from "./Type";
+import { MovieType, SimpleMovieType } from "./Type";
+
+export const emptyMovieType: MovieType = {
+    imdbId: '',
+    short: {
+        url: '',
+        name: '',
+        image: '',
+        review: {
+            author: '',
+            dateCreated: '',
+            name: '',
+            reviewBody: '',
+            reviewRating: {
+                ratingValue: ''
+            }
+        },
+        trailer: {
+            embedUrl: ''
+        },
+    },
+    top: {
+        categories: [],
+        releaseDate: {
+            day: 0,
+            month: 0,
+            year: 0
+        },
+        runtime: {
+            seconds: 0
+        },
+        ratingsSummary: {
+            aggregateRating: 0,
+            voteCount: 0
+        },
+        isAdult: false,
+        genres: {
+            genres: []
+        },
+        plot: {
+            plotText: {
+                plainText: ''
+            }
+        },
+        featuredReviews: {
+            edges: []
+        }
+    },
+    main: {
+        moreLikeThisTitles: {
+            edges: [],
+        },
+        cast: {
+            total: 0,
+            edges: []
+        },
+        directors: [
+            {
+                totalCredits: 0,
+                credits: []
+            }
+        ],
+        writers: [
+            {
+                totalCredits: 0,
+                credits: []
+            }
+        ] 
+    }
+}
 
 export async function fetchMovies(query: string) {
     try {
@@ -57,7 +126,8 @@ export async function fetchMovieDetails(movieId: string) {
                 title: "Oops...",
                 text: "Something went wrong!",
             })
-            return {}
+
+            return emptyMovieType
         }
     } catch (err) {
         Swal.fire({
@@ -65,6 +135,25 @@ export async function fetchMovieDetails(movieId: string) {
             title: "Oops...",
             text: "Something went wrong!",
         })
-        return {}
+        return emptyMovieType
     }
 }
+
+export function convertDuration(totalSeconds: number) {
+    if (totalSeconds < 0) {
+        return
+    }
+  
+    const hours = Math.floor(totalSeconds / 3600);
+    const remainingSeconds = totalSeconds % 3600;
+    const minutes = Math.floor(remainingSeconds / 60);
+
+    if (hours === 0) return `${minutes}min`
+  
+    return `${minutes ? `${hours}hr ${minutes}min` : `${hours}hr`}`
+}
+
+export function convertTitle(title: string) {
+    return title.replace(/&apos;/g, "'").replace(/&amp;/g, "&");
+}
+
