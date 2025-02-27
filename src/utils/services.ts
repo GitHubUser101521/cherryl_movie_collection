@@ -98,7 +98,8 @@ export async function fetchMovies(query: string) {
                 icon: "error",
                 title: "Oops...",
                 text: "Something went wrong!",
-            })
+                footer: '<a style="color: black; text-decoration: underline; " href="/">Back to homepage</a>'
+            });
             return []
         }
     } catch (err) {
@@ -106,7 +107,8 @@ export async function fetchMovies(query: string) {
             icon: "error",
             title: "Oops...",
             text: "Something went wrong!",
-        })
+            footer: '<a style="color: black; text-decoration: underline; " href="/">Back to homepage</a>'
+        });
         return []
     }
 }
@@ -121,12 +123,6 @@ export async function fetchMovieDetails(movieId: string) {
             Swal.close()
             return response.data
         } else {
-            Swal.fire({
-                icon: "error",
-                title: "Oops...",
-                text: "Something went wrong!",
-            })
-
             return emptyMovieType
         }
     } catch (err) {
@@ -134,7 +130,8 @@ export async function fetchMovieDetails(movieId: string) {
             icon: "error",
             title: "Oops...",
             text: "Something went wrong!",
-        })
+            footer: '<a style="color: black; text-decoration: underline; " href="/">Back to homepage</a>'
+        });
         return emptyMovieType
     }
 }

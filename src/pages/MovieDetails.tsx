@@ -3,23 +3,17 @@ import { useParams, Link, useNavigate } from 'react-router-dom'
 import { convertDuration, convertTitle, fetchMovieDetails } from '../utils/services'
 import { Header, Overview, Reviews } from './components/Components'
 import { useMovieStore } from '../utils/stores/Stores'
-import Swal from 'sweetalert2'
 
 function MovieDetails() {
     const { movieId } = useParams()
     const { movie, setMovie } = useMovieStore()
-    const navigate = useNavigate()
     const tabs = ['Overview', 'Reviews'];
     const [currentTab, setCurrentTab] = useState('Overview');
+    const navigate = useNavigate()
 
     useEffect(() => {
-        if (!movieId) {
-            navigate('/')
-            Swal.fire({
-                icon: "error",
-                title: "Oops...",
-                text: "Something went wrong!",
-            })
+        if (!movieId || movieId.slice(0,2) !== 'tt' || movieId.length >= 2) {
+            navigate('/error')
             return
         }
 
