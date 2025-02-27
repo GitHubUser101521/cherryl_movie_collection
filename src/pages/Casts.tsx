@@ -1,10 +1,8 @@
 import { useEffect } from 'react'
 import { useParams } from 'react-router-dom'
 import { fetchMovieDetails } from '../utils/services'
-import Header from './components/Header'
-import CastDetails from './components/CastDetails'
-import Footer from './components/Footer'
 import { useMovieStore } from '../utils/stores/Stores'
+import { Header, CastDetails, Footer } from './components/Components'
 
 function Casts() {
     const { movieId } = useParams()

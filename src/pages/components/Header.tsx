@@ -8,7 +8,7 @@ function Header() {
     const handleQuery = (e: React.FormEvent) => {
         e.preventDefault()
 
-        if (!inputRef.current) return
+        if (!inputRef.current?.value) return
 
         navigate(`/query/${inputRef.current.value}`)
     }

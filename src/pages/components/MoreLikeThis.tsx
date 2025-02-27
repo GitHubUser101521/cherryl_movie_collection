@@ -2,7 +2,7 @@ import { MoreLikeThisTitleType } from '../../utils/Type'
 import { MovieRec } from '../components/Components'
 
 type prop = {
-    movies: MoreLikeThisTitleType[]
+    movies: MoreLikeThisTitleType[];
 }
 
 function MoreLikeThis({ movies }: prop) {
