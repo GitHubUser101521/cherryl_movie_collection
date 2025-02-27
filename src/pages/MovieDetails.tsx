@@ -12,7 +12,7 @@ function MovieDetails() {
     const navigate = useNavigate()
 
     useEffect(() => {
-        if (!movieId || movieId.slice(0,2) !== 'tt' || movieId.length >= 2) {
+        if (!movieId || movieId.slice(0,2) !== 'tt' || movieId.length <= 2) {
             navigate('/error')
             return
         }
